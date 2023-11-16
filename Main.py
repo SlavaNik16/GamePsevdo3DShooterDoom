@@ -1,29 +1,31 @@
 import pygame
-import Setting           #Импортируем все, что находится в папке Setting
-import sprite_object
-from player import Player #Импортируем класс Player, который находится в папке player
+
+# Импортируем все, что находится в папке Setting
+import Setting
+
+# #Импортируем класс Player, который находится в папке player
+from player import Player
 from sprite_object import *
 from ray_casting import ray_casting_walls
 from drawing import Drawing
 from interaction import Interaction
 
-
 pygame.init()
-sc = pygame.display.set_mode((WIDTH, HEIGHT)) #Задаем значение экрана
-sc_map = pygame.Surface(MINIMAP_RES) #отрисовываем мини карту на отдельной поверхности уменьшенной в столько то раз
+sc = pygame.display.set_mode((WIDTH, HEIGHT))  # Задаем значение экрана
+sc_map = pygame.Surface(MINIMAP_RES)  # отрисовываем мини карту на отдельной поверхности уменьшенной в столько то раз
 pygame.display.set_caption("GamePsevdo3DShooter")
 pygame.display.set_icon(pygame.image.load('img/icons/icon.png'))
 
 sprites = Sprites()
-clock = pygame.time.Clock() #Создаем объект Класса clock, для желаемого количества кадров в сек.
-player = Player(sprites) #Создаем объект Класса Player
-drawing = Drawing(sc, sc_map, player, clock) #создаем обхект класса Drawing
+clock = pygame.time.Clock()  # Создаем объект Класса clock, для желаемого количества кадров в сек.
+player = Player(sprites)  # Создаем объект Класса Player
+drawing = Drawing(sc, sc_map, player, clock)  # создаем обхект класса Drawing
 interaction = Interaction(player, sprites, drawing)
 
 drawing.menu()
-pygame.mouse.set_visible(False) #Отключаем указатель мыши
+pygame.mouse.set_visible(False)  # Отключаем указатель мыши
 
-#interaction.play_music()
+# interaction.play_music()
 
 
 while Setting.Condition == 0:  # Основной цикл игры
@@ -31,7 +33,8 @@ while Setting.Condition == 0:  # Основной цикл игры
     drawing.bacground(player.angle)  # в построение фона передадим значение угла, чтобы сделать небо динамическим
     walls, wall_shot = ray_casting_walls(player, drawing.textures)  # возвращает номер списка стен
 
-    drawing.world(walls + [obj.object_locate(player) for obj in Setting.list_object])  # передаем список параметров стен и спрайтовf
+    drawing.world(walls + [obj.object_locate(player) for obj in
+                           Setting.list_object])  # передаем список параметров стен и спрайтовf
     drawing.fps(clock)
     if Setting.wep == 1:
         Setting.damage = 10 + Setting.Damage_Rais
@@ -61,6 +64,4 @@ while Setting.Condition == 0:  # Основной цикл игры
     pygame.display.flip()  # Обновляем содержимое(так как в цикле, то на каждой итерации)
     clock.tick(FPS)
 
-#if Setting.Condition == -1 :
-
-
+# if Setting.Condition == -1 :

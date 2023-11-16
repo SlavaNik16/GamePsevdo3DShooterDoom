@@ -9,7 +9,7 @@ from collections import deque #Импортируем очередь из мод
 from ray_casting import mapping
 from numba.core import types
 from numba.typed import Dict
-from numba import int32
+from numba import int64
 
 
 
@@ -278,7 +278,7 @@ class Sprites:
 
     @property
     def blocked_doors(self):#создаем функцию которая будет возвращать словарь всех закрытых дверейsssss
-        blocked_doors = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
+        blocked_doors = Dict.empty(key_type=types.UniTuple(int64, 2), value_type=int64)
         for obj in Setting.list_object: #если объект является дверью
             if obj.flag in {'door_h', 'door_v'} and obj.blocked:
                 i, j = mapping(obj.x, obj.y) #располагаем двери на позиции
